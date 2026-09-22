@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#08050d">
+<title>Our Journey ❤️</title>
+
+<!--
+========================================================
+            EASY CUSTOMIZATION — READ THIS
+========================================================
+1. Keep this index.html and ALL photos/videos/song in the SAME folder.
+2. Change names, dates, text, captions and media in the CONFIG section near the bottom.
+3. Example:
+      photos/1.jpg  -> means a folder named photos (NOT needed if you keep everything beside index.html)
+      1.jpg         -> means 1.jpg is beside index.html
+4. For simplest setup, put everything beside index.html:
+      index.html
+      photo1.jpg
+      photo2.jpg
+      memory1.mp4
+      our-song.mp3
+5. Exact relationship date/time goes into relationshipStart.
+6. No server, npm or framework is required. Double-click index.html to run.
+========================================================
+-->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root{
+  --bg:#07050b;
+  --bg2:#110916;
+  --pink:#ff7fc8;
+  --pink2:#ffb6e2;
+  --purple:#9c6cff;
+  --text:#fff7fc;
+  --muted:#c9bdca;
+  --glass:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.13);
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+  --radius:26px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(156,108,255,.13),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(255,127,200,.10),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+body.lock{overflow:hidden}
+button{font:inherit}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;
+  background:linear-gradient(90deg,var(--purple),var(--pink));
+  box-shadow:0 0 15px var(--pink);
+}
+
+#particles,#hearts{
+  position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+}
+.particle{
+  position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;
+  opacity:.45;animation:float 8s linear infinite;
+}
+.heart{
+  position:absolute;font-size:16px;opacity:0;animation:heartFloat 7s linear forwards;
+}
+@keyframes float{from{transform:translateY(105vh)}to{transform:translateY(-10vh)}}
+@keyframes heartFloat{
+  0%{opacity:0;transform:translateY(105vh) scale(.5) rotate(0)}
+  15%{opacity:.7}
+  100%{opacity:0;transform:translateY(-10vh) scale(1.4) rotate(25deg)}
+}
+
+section{position:relative;z-index:1;padding:100px 20px}
+.container{width:min(1100px,100%);margin:auto}
+.center{text-align:center}
+
+.eyebrow{
+  color:var(--pink2);font-size:.76rem;letter-spacing:4px;
+  text-transform:uppercase;margin-bottom:15px;
+}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif}
+h2{font-size:clamp(2.3rem,7vw,4.7rem);line-height:.95;margin-bottom:18px}
+p{color:var(--muted);line-height:1.8}
+
+.btn{
+  border:1px solid var(--border);background:rgba(255,255,255,.07);
+  color:white;border-radius:999px;padding:13px 22px;cursor:pointer;
+  transition:.3s;backdrop-filter:blur(12px);
+}
+.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}
+.btn.primary{
+  border:0;background:linear-gradient(135deg,var(--purple),var(--pink));
+  box-shadow:0 12px 35px rgba(255,127,200,.22);
+}
+
+.glass{
+  background:var(--glass);border:1px solid var(--border);
+  box-shadow:var(--shadow);backdrop-filter:blur(18px);
+  border-radius:var(--radius);
+}
+
+.reveal{opacity:0;transform:translateY(35px);transition:1s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* OPENING */
+#opening{
+  position:fixed;inset:0;z-index:9000;display:grid;place-items:center;
+  text-align:center;padding:25px;background:
+  radial-gradient(circle at 50% 35%,rgba(156,108,255,.22),transparent 32%),
+  radial-gradient(circle at 50% 80%,rgba(255,127,200,.12),transparent 30%),
+  #06040a;
+  transition:1s ease;
+}
+#opening.hide{opacity:0;visibility:hidden;pointer-events:none}
+.opening-inner{max-width:720px}
+.opening-small{letter-spacing:5px;text-transform:uppercase;color:var(--pink2);font-size:.72rem}
+.opening-title{font-size:clamp(4rem,13vw,8rem);line-height:.78;margin:25px 0}
+.opening-sub{max-width:520px;margin:0 auto 30px}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center}
+.hero-inner{max-width:900px}
+.hero h1{font-size:clamp(4rem,12vw,8.5rem);line-height:.75}
+.hero .names{font-size:clamp(1rem,3vw,1.4rem);letter-spacing:3px;margin:30px 0;color:var(--pink2)}
+.scroll{margin-top:55px;font-size:.72rem;letter-spacing:4px;color:#a99eaa}
+
+/* WISH */
+.wish-card{max-width:850px;margin:30px auto;padding:45px;text-align:center}
+.quote{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1.25;color:#fff}
+
+/* PHASES */
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:45px}
+.phase{padding:28px;min-height:270px;position:relative;overflow:hidden}
+.phase-number{font-size:4rem;font-family:"Cormorant Garamond";opacity:.22}
+.phase h3{font-size:2rem;margin:8px 0}
+.phase .date{color:var(--pink2);font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
+.phase p{margin-top:12px;font-size:.92rem}
+
+/* TIMER */
+.timer-wrap{text-align:center}
+.timer{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:45px auto 20px;
+  max-width:850px;
+}
+.time-box{padding:25px 12px}
+.time-number{font-family:"Cormorant Garamond";font-size:clamp(2.4rem,7vw,4.8rem);line-height:1}
+.time-label{font-size:.67rem;letter-spacing:3px;text-transform:uppercase;color:#aaa0ad;margin-top:8px}
+.timer-note{font-size:.82rem}
+
+/* FUTURE */
+.future{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center}
+.future-card{padding:38px}
+.future-list{display:grid;gap:12px;margin-top:25px}
+.future-item{padding:15px 18px;border-left:2px solid var(--pink);background:rgba(255,255,255,.035);border-radius:10px}
+
+/* EXPERIENCES */
+.experience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:40px}
+.exp{min-height:270px;overflow:hidden;position:relative}
+.exp img,.exp video{width:100%;height:100%;object-fit:cover}
+.exp .overlay{
+  position:absolute;inset:auto 0 0;padding:35px 18px 18px;
+  background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+.exp h3{font-size:1.65rem}
+
+/* WHY LOVE */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.flip{height:220px;perspective:1000px;cursor:pointer}
+.flip-inner{height:100%;position:relative;transition:transform .7s;transform-style:preserve-3d}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{
+  position:absolute;inset:0;backface-visibility:hidden;padding:28px;
+  display:grid;place-items:center;text-align:center;
+}
+.flip-front h3{font-size:2rem}
+.flip-back{transform:rotateY(180deg)}
+.flip-back p{font-size:.9rem}
+
+/* HUG */
+.hug-area{text-align:center}
+.hug-orb{
+  width:180px;height:180px;border-radius:50%;margin:35px auto;
+  display:grid;place-items:center;font-size:5rem;
+  background:radial-gradient(circle,rgba(255,127,200,.28),rgba(156,108,255,.08),transparent 70%);
+  box-shadow:0 0 80px rgba(255,127,200,.16);
+  cursor:pointer;transition:.4s;
+}
+.hug-orb.active{transform:scale(1.15);box-shadow:0 0 120px rgba(255,127,200,.4)}
+
+/* NICKNAME */
+.nickname{
+  max-width:700px;margin:35px auto;padding:55px;text-align:center;
+}
+.nickname-name{font-family:"Cormorant Garamond";font-size:clamp(2.5rem,7vw,5rem);color:var(--pink2)}
+.nickname small{display:block;color:#9f939f;letter-spacing:2px;margin-top:10px}
+
+/* HOME TOGETHER */
+.day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:40px}
+.day-card{padding:28px}
+.day-card span{font-size:.7rem;letter-spacing:3px;color:var(--pink2)}
+.day-card h3{font-size:2rem;margin:7px 0}
+
+/* GALLERY */
+.gallery{
+  columns:3 230px;column-gap:14px;margin-top:40px;
+}
+.gallery-item{
+  break-inside:avoid;margin-bottom:14px;border-radius:18px;overflow:hidden;
+  cursor:pointer;position:relative;background:#151018;
+}
+.gallery-item img{width:100%;transition:.5s}
+.gallery-item:hover img{transform:scale(1.04)}
+.gallery-caption{padding:10px 13px;background:rgba(10,7,13,.9);font-size:.8rem;color:#d8ccd8}
+
+/* LETTER */
+.letter-wrap{text-align:center}
+.envelope{
+  width:min(620px,100%);margin:40px auto;padding:45px;
+  min-height:300px;position:relative;cursor:pointer;
+}
+.letter-content{display:none;text-align:left;white-space:pre-line}
+.envelope.open .letter-content{display:block;animation:fade .8s}
+.envelope.open .open-hint{display:none}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* SLIDESHOW */
+.slideshow{
+  max-width:900px;height:min(70vh,560px);margin:40px auto;overflow:hidden;
+  border-radius:25px;position:relative;background:#111;
+}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s}
+.slide.active{opacity:1}
+.slide img,.slide video{width:100%;height:100%;object-fit:cover;animation:ken 7s linear}
+@keyframes ken{from{transform:scale(1)}to{transform:scale(1.08)}}
+.slide-caption{position:absolute;left:0;right:0;bottom:0;padding:70px 25px 25px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-family:"Cormorant Garamond";font-size:2rem}
+
+/* MUSIC */
+.player{max-width:650px;margin:35px auto;padding:25px;display:flex;align-items:center;gap:15px}
+.song-info{flex:1;text-align:left}
+.song-info strong{display:block;font-family:"Cormorant Garamond";font-size:1.5rem}
+.song-info small{color:#aaa}
+#playBtn{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(135deg,var(--purple),var(--pink));color:white}
+
+/* FINAL */
+.final{text-align:center;min-height:80vh;display:grid;place-items:center}
+.final h2{font-size:clamp(3.5rem,10vw,7rem)}
+.gift{
+  width:120px;height:100px;margin:35px auto;position:relative;cursor:pointer;
+  display:grid;place-items:center;font-size:3rem;
+  transition:.4s;
+}
+.gift:hover{transform:scale(1.1) rotate(-2deg)}
+.final-message{display:none;max-width:700px;margin:auto}
+.final-message.show{display:block;animation:fade 1s}
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.92);
+  display:none;place-items:center;padding:20px;
+}
+#lightbox.show{display:grid}
+#lightbox img{max-height:90vh;max-width:95vw;border-radius:15px}
+.close-lightbox{
+  position:absolute;top:20px;right:20px;border:0;background:rgba(255,255,255,.1);
+  color:#fff;border-radius:50%;width:45px;height:45px;cursor:pointer;font-size:20px;
+}
+
+/* MOBILE */
+@media(max-width:750px){
+  section{padding:75px 16px}
+  .phase-grid,.experience-grid,.cards,.future,.day-grid{grid-template-columns:1fr}
+  .timer{grid-template-columns:repeat(2,1fr)}
+  .wish-card,.nickname,.envelope{padding:30px 20px}
+  .player{padding:18px}
+  .hero h1{font-size:4.8rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body class="lock">
+
+<div id="progress"></div>
+<div id="particles"></div>
+<div id="hearts"></div>
+
+<!-- ===================== OPENING ===================== -->
+<div id="opening">
+  <div class="opening-inner">
+    <div class="opening-small">A little place made only for us</div>
+    <div class="opening-title serif">Our Story</div>
+    <p class="opening-sub">Something very special inside 😌.</p>
+    <button class="btn primary" id="startBtn">Begin Our Journey ♥</button>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-inner reveal">
+    <div class="eyebrow">One story • Two people • Countless moments</div>
+    <h1>365 Days<br><i>of Us</i></h1>
+    <div class="names" id="heroNames">JIVESH × HIMANI</div>
+    <p id="heroIntro">From a simple beginning to something I never want to lose.</p>
+    <div class="scroll">SCROLL TO REMEMBER ↓</div>
+  </div>
+</section>
+
+<!-- ===================== 1. WISH ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">01 • My feeling</div>
+      <h2>Wish</h2>
+    </div>
+    <div class="wish-card glass reveal">
+      <div class="quote" id="wishText"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. PHASES ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">02 • Our story</div>
+      <h2>Three Phases.<br>One Us.</h2>
+      <p id="phasesIntro"></p>
+    </div>
+    <div class="phase-grid" id="phaseGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== TIMER ===================== -->
+<section>
+  <div class="container timer-wrap reveal">
+    <div class="eyebrow">Always counting</div>
+    <h2>Every Second With You</h2>
+    <p id="timerSubtitle"></p>
+
+    <div class="timer">
+      <div class="time-box glass"><div class="time-number" id="days">0</div><div class="time-label">Days</div></div>
+      <div class="time-box glass"><div class="time-number" id="hours">0</div><div class="time-label">Hours</div></div>
+      <div class="time-box glass"><div class="time-number" id="minutes">0</div><div class="time-label">Minutes</div></div>
+      <div class="time-box glass"><div class="time-number" id="seconds">0</div><div class="time-label">Seconds</div></div>
+    </div>
+    <p class="timer-note" id="startDateText"></p>
+  </div>
+</section>
+
+<!-- ===================== 3. FUTURE ===================== -->
+<section>
+  <div class="container future">
+    <div class="future-card glass reveal">
+      <div class="eyebrow">03 • What I see</div>
+      <h2>I See Myself In You</h2>
+      <p id="futureText"></p>
+    </div>
+    <div class="glass future-card reveal">
+      <div class="future-list" id="futureList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. EXPERIENCES ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">04 • Still to come</div>
+      <h2>Things I Want<br>to Experience With You</h2>
+      <p id="experienceIntro"></p>
+    </div>
+    <div class="experience-grid" id="experienceGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== 5. WHY I LOVE YOU ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">05 • The little things</div>
+      <h2>Why I Love You</h2>
+      <p>Tap each card.</p>
+    </div>
+    <div class="cards" id="loveCards"></div>
+  </div>
+</section>
+
+<!-- ===================== 6. HUG & KISS ===================== -->
+<section>
+  <div class="container hug-area reveal">
+    <div class="eyebrow">06 • If you were here</div>
+    <h2>A Virtual Hug & Kiss</h2>
+    <p id="hugText"></p>
+    <div class="hug-orb glass" id="hugOrb">🫂</div>
+    <button class="btn primary" id="kissBtn">Send a Kiss 💋</button>
+    <p id="hugResult" style="margin-top:20px;min-height:30px"></p>
+  </div>
+</section>
+
+<!-- ===================== 7. NICKNAME ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">07 • Just mine</div>
+      <h2>The Name I Loved To Call You</h2>
+    </div>
+    <div class="nickname glass reveal">
+      <div class="nickname-name" id="nickname"></div>
+      <small id="nicknameLine"></small>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. LIVING TOGETHER ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">08 • If you came today</div>
+      <h2>If You Came Now<br>& Started Living With Me…</h2>
+      <p id="homeIntro"></p>
+    </div>
+    <div class="day-grid" id="dayGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">Our memories</div>
+      <h2>The Moments I Keep</h2>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<!-- ===================== MUSIC ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">Our song</div>
+      <h2>Press Play.</h2>
+    </div>
+    <div class="player glass reveal">
+      <button id="playBtn">▶</button>
+      <div class="song-info">
+        <strong id="songTitle">Our Song</strong>
+        <small id="songArtist">For the two of us</small>
+      </div>
+      <audio id="audio"></audio>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LETTER ===================== -->
+<section>
+  <div class="container letter-wrap">
+    <div class="center reveal">
+      <div class="eyebrow">From my heart</div>
+      <h2>A Letter For You</h2>
+    </div>
+    <div class="envelope glass reveal" id="envelope">
+      <div class="open-hint">
+        <div style="font-size:4rem">💌</div>
+        <p style="margin-top:15px">Tap to open</p>
+      </div>
+      <div class="letter-content">
+        <h2 style="font-size:2.5rem" id="letterHeading"></h2>
+        <p id="letterText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SLIDESHOW ===================== -->
+<section>
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">A little movie of us</div>
+      <h2>Something My hearts want.</h2>
+    </div>
+    <div class="slideshow reveal" id="slideshow"></div>
+  </div>
+</section>
+
+<!-- ===================== FINAL SURPRISE ===================== -->
+<section class="final">
+  <div class="container reveal">
+    <div class="eyebrow">One last thing</div>
+    <h2>There Is Still<br><i>A Surprise.</i></h2>
+    <div class="gift" id="gift">🎁</div>
+    <button class="btn primary" id="giftBtn">Open It</button>
+    <div class="final-message" id="finalMessage">
+      <p id="finalMessageText"></p>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="close-lightbox" id="closeLightbox">×</button>
+  <img id="lightboxImg" src="" alt="Memory">
+</div>
+
+<script>
+/* ========================================================
+   ==================== CONFIG ============================
+   EDIT EVERYTHING BELOW
+   ======================================================== */
+
+const CONFIG = {
+
+  /* ---------- BASIC DETAILS ---------- */
+  yourName: "JIVESH",
+  herName: "HIMANI",
+
+  heroIntro:
+    "From being shy to becoming a most comfort place.",
+
+  /* ---------- EXACT RELATIONSHIP DATE + TIME ---------- */
+  /*
+    IMPORTANT:
+    Use:
+    YYYY-MM-DDTHH:MM:SS
+
+    Example:
+    "2025-09-14T21:30:00"
+
+    This is the starting point for the live timer.
+  */
+  relationshipStart: "2025-09-23T01:17:00",
+
+  /* ---------- 1. ONE WISH ---------- */
+  wish:
+    "Bhaut bhaut congratulations ma'am.. hamne ek dusre ke sath ek saal complete kr liya.. dono ne ek dusre ke nakhre khub jhele h iss ek saal m aur mai chahta hu aise ek dusre ke nakhre jhele ham and koi teesra kbhi hamare bich mai na aaye aur agr glti se aaye toh ham dono furr furr krke nikal denge 😁 ek saal ho gya ma'am... i wish aise hi 1 se 2.. 2 se 3 krtey krtey miillion billion years nikal jaye 🤞❤️ ",
+
+  /* ---------- 2. OUR STORY ---------- */
+  phasesIntro:
+    "Three different chapters. Three different kinds of memories. Still the same two people.",
+
+  phases: [
+    {
+      number: "01",
+      title: "Just Friends",
+      date: "Before the relationship",
+      text:
+        "ye baatein hai uss samay ki jb mai aur aap individual person they... jb aapko ye pta nhi tha ki aapse bhaut pyaar krne wala insaan aapke sath hi pdh rha h... lekin ye time bhi kya time tha.. sbse best.. itni jyada sharam dono ki aankho mai... mnn mai pura shak rehta tha kahi aap mingle toh nhi but jb dekhta tha aapko class mai tb lgta arey nhi nhi single hi hogi... uske baad sochta tha single huyi toh try krunga aur mingle huyi toh friend bnaunga lekin hath se jane nhi dunga 😁... wo moment jb mai aapko faltu faltu msg krta tha sirf aur sirf apni himani ji se baat krne ke liye... ek secret baat... jb aapne note lgaya tha toh schl aur class mai sb mjk bnatey they toh mai bolta tha wo aise bol rha aapko dikhata tha kitna dukhi hu but mn hi mn khush hota tha log mera name aapke sath lga rhe h.. Hee Hee 😁 aaj bhi mujhe yaad h aapke area mai aatey hi mera confidence earth ke core ke pass ja girta tha 🫩... i remember aapne mera badge utha kr mujhe diya tha 🫠 anual function se lekr aapki nb se hi aapse pu6ne se lekr hariom sir ka bulne bhejna... wo teachers day pr ek photo click krwane mai drr ya sharam jo bhi ho wo kitne hi toh pyaare moments they... 😌"
+    },
+    {
+      number: "02",
+      title: "When We Became Us",
+      date: "September → February",
+      text:
+        "aaye haye ab start hotey h mere sapne wale din chemistry ki file likhtey likhtey dono baat kr rhe the.. randomly baat start hoti h aap mujhe like krtey h then mai pgl hnn bolne ki jgh aaltu faltu example dene lga aise toh woh bhi and pta nhi kya kya.. pta h seriously mai bhaut jyada drr gya tha 😅 and then jb aapne bola kisi ko mtt btana mai aapko like krne lgi hu.. goosebumps aa jatey woh sochtey hi 🤭 then the date hits 23 and time 01:17 maine bhaut himmat ki and bol diya mai bhi aapko like krta hu 🫠 do teen din tk toh sapne jaisa lg rha tha aur mai soch rha tha aapko face kaise krunga.. then i remember apne grp se akele aaya tha schl half day wale din bss aapse nb lene aur sch mein uss din mera bilklul mn nhi kr rha tha aapse nazare hatane ka 🫠 uske baad wo mushkil wale 10 din ke autmn break ke baad schl aaye.. socha tha relatioship mai aane ke baad sharam kmm hogi but hua ulta shram increase aur ho gyi... kosis purey krtey the baat krne ke liye lekin whi sharam rok leti thi hamesha... wo choclate jo aapne mere bag rkhi.. thats the most sweetest choclate i ever ate as i get from the most sweetest girl ❤️...wo water cooler ke paas aana aapse baat krna... daily raat mai challnege krna kl dektey h kon baat krega.. aapka wo maggie pasta poha pakode bna kr lana mere liye 🫠 (mujhe wo din yaad krtey huye abhi rona aa rha h 🥹) kitna pyaar krti h aap mere se mere paas words km h lekin pyaar bhaut jyada h aapke liye... wo school wala love phase.. my most fav phase pratical ke time pr jb maine aapse baat krna shuru kiya... woh chemistry lab woh physics lab aaaye haye.. koi boley konse time mai wapas jana chahoge toh mai toh yehi choose kru ma'am... kitne pyara time tha ye.. miss you very much sweetchick ❤️😘 "
+    },
+    {
+      number: "03",
+      title: "Miles Between Us",
+      date: "March → September",
+      text:
+        "Long distance... isne bilkull mahol hi change kr diya.. phele aapko schl mai daily daily dekhne se sidhe ab dekhne ke liye taras jana... khair hamara distance increase jarur ho gya lekin pyaar bhi toh... bina physical touch bina koi interaction ke pyaar krtey rhena hi sbse mushkil chij h and isme succes mtlb love life mai sucess... long distance mai h toh iska mtlb ye thodi pyaar nhi krenge.. pyaar toh akhiri saas tk krenge.. aur ek dusre ko hi krenege 😅.. aur dikha denge sbko we won and distance losse.. lekin long distance hi btata pyaar kitna deep h jii.. (deepness dikhane ke liye kbhi kbhi call kr liya kriye).. ye jealousy ye ek dusre ko khone ka dr hi toh sbse bda pyaar h... jitne time logo ka relationship chlta usse jyada toh ham bina miley nikal dete h 😅... khair aap hamesha meri pyaari maam hi rahiyega ji... mai kbhi ab aapke bina khud ko imagine hi nhi krta... jb tk sath nhi mil jatey h tb tk aise hi apni jealousy aur possesiveness bekarar rkhiye... likhne ko bhaut ku6 h lekin jyada likhunga toh cry aayega aapki yaad m 🥲.. love you bhaut sara kucchu puchhu ❤️❤️😘😘 "
+    }
+  ],
+
+  /* ---------- TIMER ---------- */
+  timerSubtitle:
+    "Because I remember exactly when our story began.",
+
+  timerStartLabel:
+    "Counting from our first moment together.",
+
+  /* ---------- 3. FUTURE ---------- */
+  futureText:
+    "Jb bhi mai ku6 sochta hu future ke barien mai kbhi bhi akele ke barein mai nhi sochta hu.. mai sochta hu ham aisa krnege... ham wiase krenge... mai aapko ek normal girl ki trh nhi dekhta mai aapke andar mrs mishra ki jhalak dekthta hu aur mai ab bina himani wale jivesh ko imagine hi nhi krta 😚☺️",
+
+  futureList: [
+    "Both living a happily married life.",
+    "Random movie night.",
+    "Exploring new new places together.",
+    "Enjoying little little moments with full joy.",
+    "Teasing each other till our 80s.",
+    "Defending each other at their back."
+  ],
+
+  /* ---------- 4. THINGS I WANT TO EXPERIENCE ---------- */
+  experienceIntro:
+    "Aisa jo abhi tk hamare bich hua nhi h lekin experience jarur krna h 😘(AI Generated)",
+
+  /*
+    These can be REAL photos or AI-generated images.
+    Put the files beside index.html.
+  */
+  experiences: [
+    {
+      image: "future-trip.jpg",
+      title: "Our First Duo Trip",
+      text: "A place we've never been, but I want we experience together."
+    },
+    {
+      image: "future-date.jpg",
+      title: "A Random Date",
+      text: "No special occasion. Just two loving birds enjoying their day.."
+    },
+    {
+      image: "future-home.jpg",
+      title: "Our Little Home",
+      text: "A normal evening, and chai pr charcha 😁."
+    },
+    {
+      image: "adventure.jpg",
+      title: "Adventure",
+      text: "Always exicted to experience a adventure and always there to help you"
+    },
+    {
+      image: "keepitsosimple.jpg",
+      title: "Keep It So Simple",
+      text: "Just lips of two people working hard so that their heart can talk"
+    },
+    {
+      image: "caring.jpg",
+      title: "Long Drive",
+      text: "A long drive in which you drive and i watch you 😁 ."
+    }
+  ],
+
+  /* ---------- 5. WHAT I LOVE IN YOU ---------- */
+  loveReasons: [
+    {
+      front: "YOUR SMILE",
+      back: "I love your smile very much baby.. as it was the first thing which make me fall for you.. genuinely your smile is cutest thing in world."
+    },
+    {
+      front: "The way you treat me",
+      back: "Whenever I feel low and sad you are the who give 100% to make me smile.. that's why you have special place in my heart."
+    },
+    {
+      front: "Your possessiveness or jealousy 🤭",
+      back: "Whenever you say who is she, you don't need any female friend.. when you behave like that i genuinely feel veryy special 😁😘."
+    },
+    {
+      front: "Our conversations",
+      back: "When i tease you and you get irriated and start saying hupp, thappad lagega.. ye mujhe bda good-good feel krwata h 😁 ."
+    },
+    {
+      front: "Your eyes, Your waist 🤭, Your hands 😁",
+      back: "Wheneve i see your eyes i thought bss aapko dekhta rahu.. jb aapki kamar dekhta hu toh kaas ye hath whi hota aapki pyaari si kamar par.. aapke hath dekhta hu toh lgta h kaas hath mai hath daal kr baithe hotey."
+    },
+    {
+      front: "Simply… you only youu youu and youuuuuu",
+      back: "Ye sab jo phele pdha ye just like a drop of water from ocean h. mujhe aaj tk smjh nhi aaya why i love you but i love you more than anything. may be bina kisi reason pyaar krna hi pyaar h.. bss ab aapke bina ku6 bhi nhi h.. aur aapse pyaar h isiliye aapse judi hrr chij se pyaar h 🥹😘"
+    }
+  ],
+
+  /* ---------- 6. HUG + KISS ---------- */
+  hugText:
+    "Close your eyes for a second. Imagine I'm right there. No distance. No screen. Just us.",
+
+  hugMessage:
+    "Come here. 🫂 Consider this the longest hug I can send through a screen.",
+
+  kissMessage:
+    "One kiss delivered. 💋 The real one is still pending.",
+
+  /* ---------- 7. SPECIAL NAME ---------- */
+  specialName: [
+  "Ma'am",
+  "Bacchu",
+  "Sweetheart",
+  "Sweetchick",
+  "Babyy",
+  "Kucchu Puccchu",
+],
+
+  nicknameLine:
+    "Name bhaut sarey h but these are the name that sounds different when I say it.",
+
+  /* ---------- 8. LIVING TOGETHER ---------- */
+  homeIntro:
+    "If you suddenly came here today and said, 'Okay, I'm staying'… this is probably how I'd want our ordinary life to feel.",
+
+  dayTogether: [
+    {
+      time: "MORNING",
+      title: "Wake Up Together",
+      text: "Mai phele uth kr aapke liye coffee or juice launga and aapke pait mai gudgudi krke uthaunga 😁🤭"
+    },
+    {
+      time: "AFTERNOON",
+      title: "Do Nothing Together",
+      text: "Just talking the things which have no value.. just fun time masti mjk 😁... sath mai aapko pareshan bhi krunga 😏"
+    },
+    {
+      time: "EVENING",
+      title: "Go Somewhere",
+      text: "Just moving outside to get relax and something-something like long drive or a date."
+    },
+    {
+      time: "NIGHT",
+      title: "One Last Conversation",
+      text: "Talk about our day.. just one bed one blanket.. four hands finding their destinations.. legs are locked.. lust in our eyes.. so close even no air passes through us 😁🤭"
+    }
+  ],
+
+  /* ---------- GALLERY ---------- */
+  /*
+    Add as many photos as you want.
+    Keep each filename EXACTLY the same as the real file.
+  */
+  gallery: [
+    { image: "photo1.jpg", caption: "The first photo." },
+    { image: "photo2.jpg", caption: "Cute Couple." },
+    { image: "photo3.jpg", caption: "One of my favorite memories." },
+    { image: "photo4.jpg", caption: "A moment I never want to forget." },
+    { image: "photo5.jpg", caption: "Us being us." },
+    { image: "photo6.jpg", caption: "Another little piece of our story." }
+  ],
+
+  /* ---------- SONG ---------- */
+  song: {
+    file: "song.mp3",
+    title: "Song I Love The Most",
+    artist: "This is the song which made me feel that you are with me "
+  },
+
+  /* ---------- LETTER ---------- */
+  letterHeading: "To My Pyaari Ma'am ❤️,",
+
+  letter:
+`Mujhe nhi pta ma'am iss website ne aapko kya feel krwaya kya nhi but litreally maine jitne din bhi ispe work kiya tb tb meri aankhein wet hi thi bss aapko miss kr rhi thii
+
+Hamne bhaut phases dekhe — friendship, school days, distance, waiting, missing each other and all the little moments in between.
+
+Aur agr mujhe inme se choose krna hua toh:-
+
+Mai ku6 bhi choose nhi krunga mai choose krunga toh bss aapka mere sath hona...  
+
+If koi jabardasti h choose krna toh mai choose krunga:-
+Aapke sath bhaut baatein.
+Gande gande jokes.
+Pyaari pyaari memories.
+Long hugs.
+Exploring more places.
+And to live with you till last breathe.
+
+Thank you for becoming such an important part of my life.
+My life is just like a hell without you.
+Eventhough jivesh sounds very poor without himanii ❤️`,
+
+  /* ---------- SLIDESHOW ---------- */
+  /*
+    Can contain photos AND videos.
+    type: "image" or "video"
+  */
+  slideshow: [
+    {
+      type: "image",
+      file: "phot1.jpg",
+      caption: "Where our story lives."
+    },
+    {
+      type: "image",
+      file: "phot2.jpg",
+      caption: "One memory at a time."
+    },
+    {
+      type: "image",
+      file: "phot3.jpg",
+      caption: "Just Feel "
+    },
+    {
+      type: "image",
+      file: "phot4.jpg",
+      caption: "This is still my favorite pose."
+    }
+  ],
+
+  /* ---------- FINAL SURPRISE ---------- */
+  finalMessage:
+    "Agr aap yha tk phauch hi gyi h toh aapko bhaut bhautt bhautttt sara pyaar and thank you last year itna accha bnane ke liye... iss saal mai khub hasa khub roya just because your little thigs matter to me a lot... bss aapse ek request h mere sath aise hi sath mai rahiye mujhe hamesha hasaiye rulaiye sb kriyee bss aur bss sirf mere sathh... i hope jitna khush mai isko bnane mai hua next year isse bhi jyada and usse next year isse bhi jyada.. aur mai apni khushi hamesha aapke sath hi share krna chahta hu... love you bhaut sara babyyyyyy ❤️.. keep it so simplee bacchuuuu 😘",
+
+  finalButtonText: "Open My Heart"
+};
+
+
+/* ========================================================
+   ================== DO NOT NEED TO EDIT =================
+   ===================== THE CODE =========================
+   ======================================================== */
+
+const $ = id => document.getElementById(id);
+
+$("heroNames").textContent = `${CONFIG.yourName} × ${CONFIG.herName}`;
+$("heroIntro").textContent = CONFIG.heroIntro;
+$("wishText").textContent = CONFIG.wish;
+$("phasesIntro").textContent = CONFIG.phasesIntro;
+$("timerSubtitle").textContent = CONFIG.timerSubtitle;
+$("startDateText").textContent =
+  CONFIG.timerStartLabel + " " +
+  new Date(CONFIG.relationshipStart).toLocaleString([], {
+    dateStyle:"long", timeStyle:"short"
+  });
+$("futureText").textContent = CONFIG.futureText;
+$("experienceIntro").textContent = CONFIG.experienceIntro;
+$("hugText").textContent = CONFIG.hugText;
+$("nickname").textContent = CONFIG.specialName.join(" • ");
+$("nicknameLine").textContent = CONFIG.nicknameLine;
+$("homeIntro").textContent = CONFIG.homeIntro;
+$("songTitle").textContent = CONFIG.song.title;
+$("songArtist").textContent = CONFIG.song.artist;
+$("letterHeading").textContent = CONFIG.letterHeading;
+$("letterText").textContent = CONFIG.letter;
+$("finalMessageText").textContent = CONFIG.finalMessage;
+$("giftBtn").textContent = CONFIG.finalButtonText;
+
+/* phases */
+$("phaseGrid").innerHTML = CONFIG.phases.map(p => `
+  <article class="phase glass reveal">
+    <div class="phase-number">${p.number}</div>
+    <div class="date">${p.date}</div>
+    <h3>${p.title}</h3>
+    <p>${p.text}</p>
+  </article>
+`).join("");
+
+/* future list */
+$("futureList").innerHTML = CONFIG.futureList.map(x => `
+  <div class="future-item">${x}</div>
+`).join("");
+
+/* experiences */
+$("experienceGrid").innerHTML = CONFIG.experiences.map(x => `
+  <article class="exp glass reveal">
+    <img src="${x.image}" alt="${x.title}" loading="lazy"
+         onerror="this.style.display='none'">
+    <div class="overlay">
+      <h3>${x.title}</h3>
+      <p>${x.text}</p>
+    </div>
+  </article>
+`).join("");
+
+/* love cards */
+$("loveCards").innerHTML = CONFIG.loveReasons.map(x => `
+  <div class="flip">
+    <div class="flip-inner">
+      <div class="flip-front glass"><h3>${x.front}</h3><small>Tap to turn</small></div>
+      <div class="flip-back glass"><p>${x.back}</p></div>
+    </div>
+  </div>
+`).join("");
+
+document.querySelectorAll(".flip").forEach(card => {
+  card.addEventListener("click", () => card.classList.toggle("flipped"));
+});
+
+/* day together */
+$("dayGrid").innerHTML = CONFIG.dayTogether.map(x => `
+  <article class="day-card glass reveal">
+    <span>${x.time}</span>
+    <h3>${x.title}</h3>
+    <p>${x.text}</p>
+  </article>
+`).join("");
+
+/* gallery */
+$("gallery").innerHTML = CONFIG.gallery.map((x,i) => `
+  <div class="gallery-item" data-src="${x.image}">
+    <img src="${x.image}" alt="Memory ${i+1}" loading="lazy"
+         onerror="this.parentElement.style.display='none'">
+    <div class="gallery-caption">${x.caption}</div>
+  </div>
+`).join("");
+
+document.querySelectorAll(".gallery-item").forEach(item => {
+  item.addEventListener("click", () => {
+    $("lightboxImg").src = item.dataset.src;
+    $("lightbox").classList.add("show");
+  });
+});
+
+$("closeLightbox").onclick = () => $("lightbox").classList.remove("show");
+$("lightbox").addEventListener("click", e => {
+  if(e.target === $("lightbox")) $("lightbox").classList.remove("show");
+});
+
+/* song */
+const audio = $("audio");
+audio.src = CONFIG.song.file;
+
+$("playBtn").onclick = async () => {
+  try{
+    if(audio.paused){
+      await audio.play();
+      $("playBtn").textContent = "❚❚";
+    }else{
+      audio.pause();
+      $("playBtn").textContent = "▶";
+    }
+  }catch(err){
+    alert("Song could not be played. Check the filename in CONFIG and keep the MP3 beside index.html.");
+  }
+};
+audio.addEventListener("ended", () => $("playBtn").textContent = "▶");
+
+/* letter */
+$("envelope").addEventListener("click", () => {
+  $("envelope").classList.toggle("open");
+});
+
+/* hug / kiss */
+$("hugOrb").addEventListener("click", () => {
+  $("hugOrb").classList.add("active");
+  $("hugResult").textContent = CONFIG.hugMessage;
+  createHearts(12);
+  setTimeout(() => $("hugOrb").classList.remove("active"), 1000);
+});
+
+$("kissBtn").addEventListener("click", () => {
+  $("hugResult").textContent = CONFIG.kissMessage;
+  createHearts(18);
+});
+
+/* timer */
+function updateTimer(){
+  const start = new Date(CONFIG.relationshipStart);
+  const now = new Date();
+  let diff = now - start;
+
+  if(isNaN(start.getTime())){
+    $("days").textContent = "—";
+    $("hours").textContent = "—";
+    $("minutes").textContent = "—";
+    $("seconds").textContent = "—";
+    return;
+  }
+
+  if(diff < 0) diff = 0;
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  $("days").textContent = days.toLocaleString();
+  $("hours").textContent = String(hours).padStart(2,"0");
+  $("minutes").textContent = String(minutes).padStart(2,"0");
+  $("seconds").textContent = String(seconds).padStart(2,"0");
+}
+updateTimer();
+setInterval(updateTimer,1000);
+
+/* slideshow */
+let slideIndex = 0;
+const slideshow = $("slideshow");
+
+function renderSlides(){
+  slideshow.innerHTML = CONFIG.slideshow.map((x,i) => {
+    if(x.type === "video"){
+      return `
+        <div class="slide ${i===0?"active":""}">
+          <video src="${x.file}" muted playsinline loop></video>
+          <div class="slide-caption">${x.caption}</div>
+        </div>`;
+    }
+    return `
+      <div class="slide ${i===0?"active":""}">
+        <img src="${x.file}" alt="Slideshow memory" onerror="this.style.display='none'">
+        <div class="slide-caption">${x.caption}</div>
+      </div>`;
+  }).join("");
+}
+renderSlides();
+
+setInterval(() => {
+  const slides = document.querySelectorAll(".slide");
+  if(!slides.length) return;
+
+  slides[slideIndex].classList.remove("active");
+  const oldVideo = slides[slideIndex].querySelector("video");
+  if(oldVideo) oldVideo.pause();
+
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add("active");
+
+  const newVideo = slides[slideIndex].querySelector("video");
+  if(newVideo) newVideo.play().catch(()=>{});
+},3000);
+
+/* opening */
+$("startBtn").addEventListener("click", () => {
+  $("opening").classList.add("hide");
+  document.body.classList.remove("lock");
+  setTimeout(() => {
+    window.scrollTo({top:0,behavior:"smooth"});
+  },300);
+  createHearts(10);
+});
+
+/* final surprise */
+$("giftBtn").addEventListener("click", () => {
+  $("finalMessage").classList.add("show");
+  $("giftBtn").textContent = "❤️";
+  createHearts(30);
+});
+
+/* reveal animations */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+/* progress bar */
+window.addEventListener("scroll", () => {
+  const h = document.documentElement;
+  const progress = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  $("progress").style.width = progress + "%";
+});
+
+/* particles */
+for(let i=0;i<45;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDelay=(Math.random()*8)+"s";
+  p.style.animationDuration=(5+Math.random()*8)+"s";
+  p.style.opacity=(.15+Math.random()*.55);
+  $("particles").appendChild(p);
+}
+
+/* hearts */
+function createHearts(count=5){
+  for(let i=0;i<count;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.textContent=["♥","♡","❤","💗"][Math.floor(Math.random()*4)];
+    h.style.left=(10+Math.random()*80)+"%";
+    h.style.animationDelay=(Math.random()*.5)+"s";
+    h.style.fontSize=(12+Math.random()*18)+"px";
+    $("hearts").appendChild(h);
+    setTimeout(()=>h.remove(),7500);
+  }
+}
+
+/* occasional ambient hearts */
+setInterval(() => {
+  if(document.visibilityState === "visible") createHearts(1);
+},3500);
+
+/* graceful media errors */
+document.querySelectorAll("img").forEach(img => {
+  img.addEventListener("error", () => {
+    img.style.opacity = ".25";
+  });
+});
+</script>
+</body>
+</html>
